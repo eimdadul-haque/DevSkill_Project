@@ -1,0 +1,23 @@
+.main {
+    height: 100vh;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my_custom_scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+.table_wrapper_scroll_y {
+    display: block;
+}
+
+.scrollbar{
+    height: 250px;
+    overflow: scroll;
+}

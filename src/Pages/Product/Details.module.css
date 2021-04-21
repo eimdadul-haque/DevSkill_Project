@@ -1,0 +1,19 @@
+.btn_cart {
+    width: 80%;
+}
+
+.btn_buy {
+    margin-top: 5px;
+    width: 80%;
+}
+
+.container {
+    height: 100vh;
+    padding-top: 30px;
+    margin-bottom: 10px;
+}
+
+.img{
+    width: 60%;
+    height: 80%;
+}

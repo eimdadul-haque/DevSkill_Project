@@ -1,0 +1,27 @@
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main {
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.title {
+    color: white;
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+.link {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.link:hover {
+    color: rgb(190, 184, 184);
+}
+

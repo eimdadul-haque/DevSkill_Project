@@ -1,0 +1,35 @@
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.col {
+    display: flex;
+}
+
+.card {
+    height: 300px;
+    width: 260px;
+    margin-top: 10px;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.img{
+    width: 160px;
+    height: 160px;
+}
+
+.title{
+    font-size: 12px;
+}
+
+.price{
+    font-size: 15px;
+    color: rgb(248, 89, 89);
+}
+
+.inner {
+    overflow: hidden;
+}
