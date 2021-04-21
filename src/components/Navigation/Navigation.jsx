@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Navbar, Nav, Form, FormControl, Container } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
 import { ShoppingCart } from '@material-ui/icons';

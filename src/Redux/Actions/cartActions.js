@@ -1,23 +1,32 @@
 import { ActionType } from '../ActionType';
 import axios from 'axios';
-import { LINK, API_LINK } from '../../API_LINK/API_LINK'
+import {  API_LINK } from '../../API_LINK/API_LINK'
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
-    const { data } = await axios.get(LINK + id);
-    dispatch({
-        type: ActionType.ADD_CART,
-        payload: {
-            id: data.id,
-            name: data.title,
-            img: data.image,
-            price: data.price,
-            stock: data.stock,
-            qty: parseInt(qty)
-        }
-    })
+export const addToCart = (id, qty) => (dispatch, getState) => {
 
-    localStorage.setItem("cart", JSON.stringify(getState().cartStore.cartList));
+    try {
+        axios.post(API_LINK + "cart/", {
+            product: [{
+                quantity: parseInt(qty)
+            }
+            ]
+        },
+            {
+                headers: {
+                    authorization: "bearer" + sessionStorage.getItem('token')
+                }
+            }
+
+        )
+            .then(res => console.log(res))
+            .catch(res => res)
+    } catch (error) {
+
+    }
+
 }
+
+
 
 export const removeFromCart = (id) => (dispatch, getState) => {
     dispatch({

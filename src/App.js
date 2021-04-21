@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import {
   Product, Cart, Details, Login, Oreder, AdminDash,
@@ -19,7 +19,7 @@ function App() {
     dispatch(getProduts());
     dispatch(getCatagoty());
     dispatch(getallOrder());
-  }, [])
+  }, [dispatch])
 
   return (
     < >

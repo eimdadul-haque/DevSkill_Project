@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Container, Row, Col, Form, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Modal, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import CloseIcon from '@material-ui/icons/Close';
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import FadeLoader from 'react-spinners/FadeLoader'
-import { MenuItem, FormControl, InputLabel, Select, } from '@material-ui/core';
-import { API_LINK } from '../../../API_LINK/API_LINK';
+import { API_LINK } from '../../../../API_LINK/API_LINK';
 import axios from 'axios';
+import { AddcategoryModaloff } from '../../../../Redux/Actions/modalAction'
 
 export default function AddCategory(props) {
 
@@ -16,7 +15,6 @@ export default function AddCategory(props) {
     const [name, setname] = useState('')
     const [desc, setdesc] = useState('')
     const [image, setimage] = useState('')
-    const history = useHistory();
 
     useEffect(() => {
         setloader(false);
@@ -35,6 +33,7 @@ export default function AddCategory(props) {
         }).then(res => res.status)
             .catch(res => res)
 
+        dispatch(AddcategoryModaloff())
     }
 
     return (
@@ -89,7 +88,7 @@ export default function AddCategory(props) {
 
                             <Modal.Footer className='d-flex justify-content-center '>
                                 <Button variant='outline-dark' onClick={() => Add()}>
-                                    Add Product
+                                    Add Category
                                 </Button>
                             </Modal.Footer>
                         </Modal>

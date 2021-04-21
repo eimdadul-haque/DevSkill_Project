@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Container, Row, Col, Form, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Modal, Container, Row, Col, Form, Button} from 'react-bootstrap';
 import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from 'react-redux'
 import { signupAction } from '../../Redux/Actions/accountActions'
@@ -22,7 +22,7 @@ export default function SignUp(props) {
     const signup = () => {
         if (email && password && password.length >= 8) {
             dispatch(signupAction(firstname, lastname, email, phone, username, password))
-            if (state.status.statusCode == 200 && state.status.statusText == "OK") {
+            if (state.status.statusCode === 200 && state.status.statusText === "OK") {
                 history.push('/dashboard')
             }
         }

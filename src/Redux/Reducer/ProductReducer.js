@@ -37,3 +37,16 @@ export const getProductDetails = (state = { product: [] }, action) => {
             return state;
     }
 }
+
+export const EditId = (state = { editID: [] }, action) => {
+    switch (action.type) {
+        case ActionType.EDIT_ID:
+            return {
+                ...state,
+                editID: action.payload
+            }
+
+        default:
+            return state;
+    }
+}

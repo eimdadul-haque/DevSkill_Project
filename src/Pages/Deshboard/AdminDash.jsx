@@ -2,39 +2,48 @@ import React, { useEffect, useState } from 'react'
 import style from './AdminDash.module.css'
 import FadeLoader from 'react-spinners/FadeLoader'
 import '.././../index.css'
-import Navigation from '../../components/Navigation'
+import Navigation from '../../components/Navigation/Navigation'
 import { Container, Row, Col, Card, Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import ActionType from '../../Redux/ActionType'
-import Footer from '../../components/Footer'
-import AddProduct from './CRUD Modal/AddProduct'
-import AddCategory from './CRUD Modal/AddCategory'
+import {
+    productModaloff, productModalon, EditproductModalon, EditproductModaloff, EditcategoryModalon,
+    EditcategoryModaloff, AddcategoryModaloff, AddcategoryModalon
+} from '../../Redux/Actions/modalAction'
+import { getProduts, productDelete } from '../../Redux/Actions/productActions'
+import { categorytDelete, getCatagoty } from '../../Redux/Actions/categoryActions'
+import Footer from '../../components/Footer/Footer'
+import AddProduct from './CRUD Modal/Product/AddProduct'
+import Editproduct from './CRUD Modal/Product/Editproduct'
+import EditCategory from './CRUD Modal/Category/EditCategory'
+import AddCategory from './CRUD Modal/Category/AddCategory'
 import { Delete } from '@material-ui/icons'
+import { Edit } from '@material-ui/icons'
 
 function AdminDash() {
 
     const { products } = useSelector(state => state.ProductStore)
     const { catagory } = useSelector(state => state.catagoryStore)
     const { orderList } = useSelector(state => state.OrderStore)
-    var products_ = []
 
-    const [modalProduct, setmodalProduct] = useState(false);
-    const [modalCategory, setmodalCategory] = useState(false);
 
+    const { module } = useSelector(state => state.ProductModalStore)
+    const { edit } = useSelector(state => state.productEditmodalStore)
+    const { catagoryModal } = useSelector(state => state.catagorEditModalStore)
+    const { AddcatagoryModal } = useSelector(state => state.catagorAddModalStore)
     const [loader, setloader] = useState(true)
-
     const dispatch = useDispatch();
-
     useEffect(() => {
+        dispatch(getProduts());
+        dispatch(getCatagoty());
         setloader(false);
-    }, [])
+    }, [module, edit, catagoryModal, AddcatagoryModal, dispatch])
 
-
-
-    const addProduct = () => {
-
+    const removeProduct = (id) => {
+        dispatch(productDelete(id))
     }
-
+    const removeCategory = (id) => {
+        dispatch(categorytDelete(id))
+    }
 
     return (
         <>
@@ -42,8 +51,8 @@ function AdminDash() {
                 loader === true ? <div className='App'><FadeLoader /></div> :
                     <div>
                         <Navigation />
-                        <div className={'style.main', 'mt-3'}>
-                            <Container>
+                        <div className='mt-3' id={style.main}>
+                            <Container fluid>
                                 <Row className={style.row}  >
                                     <Col sm={12} md={6} lg={3}>
                                         <Card className='shadow'>
@@ -62,14 +71,14 @@ function AdminDash() {
                                     <Col sm={12} md={6} lg={3}>
                                         <Card className='shadow '>
                                             <Card.Header className='text-center'>
-                                                Total Catagoty <h6>hhh</h6>
+                                                Total Categoty <h6>0</h6>
                                             </Card.Header>
                                         </Card>
                                     </Col>
                                     <Col sm={12} md={6} lg={3}>
                                         <Card className='shadow '>
                                             <Card.Header className='text-center'>
-                                                Total Order <h6>hhh</h6>
+                                                Total Order <h6>0</h6>
                                             </Card.Header>
                                         </Card>
                                     </Col>
@@ -84,7 +93,7 @@ function AdminDash() {
                                                     Product Table
                                                 </div>
                                                 <div >
-                                                    <Button onClick={() => setmodalProduct(true)} variant='outline-dark'>Add Product</Button>
+                                                    <Button onClick={() => dispatch(productModalon())} variant='outline-dark'>Add Product</Button>
                                                 </div>
                                             </Card.Header>
                                             <div className={style.scrollbar}>
@@ -96,33 +105,38 @@ function AdminDash() {
                                                             <th>Price</th>
                                                             <th>Stock</th>
                                                             <th></th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     {
                                                         products.length === 0 ? "No data in database" :
                                                             <>
-                                                                {
-                                                                    products.map((data, index) => {
-                                                                        return (
+                                                                <tbody >
+                                                                    {
+                                                                        products.map((data, index) => {
+                                                                            return (
 
-                                                                            <tbody key={index}>
-                                                                                <tr>
+
+                                                                                <tr key={index}>
                                                                                     <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
                                                                                     <td>{data.title}</td>
                                                                                     <td>{data.price} </td>
                                                                                     <td>{data.stock}</td>
-                                                                                    <td ><span className='text-danger' ><Delete /></span></td>
+                                                                                    <td ><span className='text-danger' onClick={() => removeProduct(data._id)} ><Delete /></span></td>
+                                                                                    <td ><span className='text-info' onClick={() => dispatch(EditproductModalon(data._id))} ><Edit /></span></td>
                                                                                 </tr>
-                                                                            </tbody>
-                                                                        )
-                                                                    })
-                                                                }
+
+                                                                            )
+                                                                        })
+                                                                    }
+                                                                </tbody>
                                                             </>
                                                     }
                                                 </Table>
                                             </div>
                                         </Card>
-                                        <AddProduct show={modalProduct} onHide={() => setmodalProduct(false)} />
+                                        <AddProduct show={module} onHide={() => dispatch(productModaloff())} />
+                                        <Editproduct show={edit} onHide={() => dispatch(EditproductModaloff())} />
                                     </Col>
                                     <Col sm={12} md={6} >
                                         <Card className='shadow'>
@@ -131,7 +145,7 @@ function AdminDash() {
                                                     Category Table
                                                 </div>
                                                 <div >
-                                                    <Button onClick={() => setmodalCategory(true)} variant='outline-dark'>Add Category</Button>
+                                                    <Button onClick={() => dispatch(AddcategoryModalon())} variant='outline-dark'>Add Category</Button>
                                                 </div>
                                             </Card.Header>
                                             <div className={style.scrollbar}>
@@ -142,32 +156,36 @@ function AdminDash() {
                                                             <th>Name</th>
                                                             <th>Description</th>
                                                             <th></th>
+                                                            <th></th>
                                                         </tr>
                                                     </thead>
                                                     {
                                                         catagory.length === 0 ? "No data in database" :
-                                                            <>
+                                                            <> <tbody >
                                                                 {
                                                                     catagory.map((data, index) => {
                                                                         return (
 
-                                                                            <tbody key={index}>
-                                                                                <tr>
-                                                                                    <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
-                                                                                    <td>{data.name}</td>
-                                                                                    <td>{data.description} </td>
-                                                                                    <td ><span className='text-danger' ><Delete /></span></td>
-                                                                                </tr>
-                                                                            </tbody>
+
+                                                                            <tr key={index}>
+                                                                                <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
+                                                                                <td>{data.name}</td>
+                                                                                <td>{data.description} </td>
+                                                                                <td ><span onClick={() => removeCategory(data._id)} className='text-danger' ><Delete /></span></td>
+                                                                                <td ><span className='text-info' onClick={() => dispatch(EditcategoryModalon(data._id))} ><Edit /></span></td>
+                                                                            </tr>
+
                                                                         )
                                                                     })
                                                                 }
+                                                            </tbody>
                                                             </>
                                                     }
                                                 </Table>
                                             </div>
                                         </Card>
-                                        <AddCategory show={modalCategory} onHide={() => setmodalCategory(false)} />
+                                        <AddCategory show={AddcatagoryModal} onHide={() => dispatch(AddcategoryModaloff())} />
+                                        <EditCategory show={catagoryModal} onHide={() => dispatch(EditcategoryModaloff())} />
                                     </Col>
                                 </Row>
                                 <Row className='mt-2 mb-2'  >

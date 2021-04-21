@@ -1,6 +1,6 @@
 import { ActionType } from '../ActionType';
 import axios from 'axios';
-import { LINK, API_LINK } from '../../API_LINK/API_LINK'
+import { API_LINK } from '../../API_LINK/API_LINK'
 
 
 export const getCatagoty = () => async (dispatch, getStore) => {
@@ -27,5 +27,21 @@ export const getCatagotyDetails = (id) => async (dispatch) => {
         })
     } catch (error) {
 
+    }
+}
+
+
+export const categorytDelete = (id) => async (dispatch) => {
+    try {
+
+        const { data } = await axios.delete(API_LINK + "category/" + id, {
+            headers: {
+                authorization: "bearer " + sessionStorage.getItem('token')
+            }
+        });
+
+        getCatagoty();
+
+    } catch (error) {
     }
 }

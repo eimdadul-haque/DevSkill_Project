@@ -19,3 +19,16 @@ export const catagorDetailsyReducer = (state = { catagoryDetails: [] }, action) 
             return state;
     }
 }
+
+export const Edit_Id = (state = { edit_ID: [] }, action) => {
+    switch (action.type) {
+        case ActionType.EDIT_CATEGORY_ID:
+            return {
+                ...state,
+                edit_ID: action.payload
+            }
+
+        default:
+            return state;
+    }
+}

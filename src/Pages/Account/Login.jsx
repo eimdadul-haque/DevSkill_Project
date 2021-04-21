@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../Redux/Actions/accountActions'
+import { useDispatch } from 'react-redux'
 import SignUp from './SignUp'
-import { Container, Card, Col, Row, Form, Button, ButtonToolbar } from 'react-bootstrap';
+import { Container, Card, Col, Row, Form, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom'
-import Navigation from '../../components/Navigation'
+import Navigation from '../../components/Navigation/Navigation'
 import { API_LINK } from '../../API_LINK/API_LINK'
 import { ActionType } from '../../Redux/ActionType'
 import axios from 'axios'
@@ -15,14 +14,13 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
-    const state = useSelector(state => state.LoginStore)
     const history = useHistory()
 
     useEffect(() => {
         if (sessionStorage.getItem('token')) {
             history.push('/dashboard')
         }
-    }, [])
+    }, [history])
 
 
 
@@ -60,28 +58,20 @@ export default function Login() {
 
         }
 
-        // if (email && password) {
-        //     dispatch(login(email, password));
-        //     console.log("HHHHHHHH");
-        //     history.push('/')
-        // }
-        // else {
-
-        // }
     }
 
     return (<> <Navigation />
         <div style={{ height: '100vh' }}>
             <Container >
                 <Row>
-                    <Col xs={12} xs={12} sm={12} md={6} lg={8}>
+                    <Col  xs={12} sm={12} md={6} lg={8}>
                         <div style={{ marginTop: '30%' }}>
                             <h1>fakecommerce</h1>
                             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.<br /> Ipsam sint perspiciatis repellat quos qui voluptates animi aliquam?</p>
                         </div>
 
                     </Col>
-                    <Col xs={12} xs={12} sm={12} md={6} lg={4}>
+                    <Col xs={12}  sm={12} md={6} lg={4}>
                         <Form style={{ marginTop: '35%' }}>
                             <Card className="shadow" style={{ borderRadius: '5px' }}>
                                 <Card.Body>

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Container, Row, Col, Form, Button, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Modal, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import FadeLoader from 'react-spinners/FadeLoader'
 import axios from 'axios'
 import { MenuItem, FormControl, InputLabel, Select, } from '@material-ui/core';
-import { API_LINK } from '../../../API_LINK/API_LINK';
-import { getCatagotyDetails } from '../../../Redux/Actions/categoryActions'
+import { API_LINK } from '../../../../API_LINK/API_LINK';
+import { productModaloff } from '../../../../Redux/Actions/modalAction'
 
 export default function AddProduct(props) {
 
@@ -19,8 +19,8 @@ export default function AddProduct(props) {
     const [description, setdescription] = useState('')
     const [image, setimage] = useState('')
     const [stock, setstock] = useState(0)
+    const [category_name, setcategory_name] = useState('')
     const [category_id, setcategory_id] = useState({})
-    console.log(image, "===image");
     const { catagory } = useSelector(state => state.catagoryStore)
     const history = useHistory();
 
@@ -28,52 +28,68 @@ export default function AddProduct(props) {
         setloader(false);
     }, [])
 
-    const Add = (category_id) => {
-        // fetch(API_LINK + "products/", {
-        //     method: "POST",
-        //     headers: {
-        //         authorization: "bearer " + sessionStorage.getItem('token')
-        //     },
-        //     body: JSON.stringify({
-        //         title: title,
-        //         price: price,
-        //         description: description,
-        //         image: "BASE64",
-        //         stock: stock,
-        //         category: {
-        //             _id: category_id
-        //         }
-        //     }),
-        // })
-        //     .then((res) => res.json())
-        //     .then((json) => console.log(json));
+    const uploadImage = async (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            console.log(file, "====fime");
+            const Base64 = await base64(file);
+            setimage(Base64);
+        }
 
-        axios.post(API_LINK + 'products/', {
-            title: title,
-            price: price,
-            description: description,
-            image: "BASE64",
-            stock: stock,
-            category: {
+    }
 
-                _id: category_id._id,
-                name: catagory.name
-            }
-        }, {
+    const base64 = (file) => {
+        return new Promise((resolv, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolv(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        })
+    }
+
+    var data = {
+        title: title,
+        price: parseInt(price),
+        description: description,
+        image: image,
+        stock: parseInt(stock),
+        category: {
+
+            _id: category_id,
+            name: category_name
+        }
+    }
+
+    const Add = () => {
+
+        axios.post(API_LINK + 'products/', data, {
             headers: {
                 authorization: "bearer " + sessionStorage.getItem('token')
             }
-        }).then(res => res.status)
+        }).then(res => {
+            history.push('/dashboard')
+        })
             .catch(res => res)
 
+        dispatch(productModaloff())
+
     }
+
+
 
     const setCate = (id) => {
         try {
             axios.get(API_LINK + 'category/' + id)
                 .then(res => {
-                    console.log(res.data, "===DATA");
-                    setcategory_id(res.data)
+                    console.log(res);
+                    setcategory_id(res.data._id);
+                    setcategory_name(res.data.name)
                 })
                 .catch(res => res);
 
@@ -93,7 +109,7 @@ export default function AddProduct(props) {
                                 <Col xs={6} lg={6}>
                                     <div style={{ marginLeft: '10%' }}>
                                         <Modal.Title id='contained-model-title-vcenter'>
-                                            SignUp
+                                        AddProduct
                                         </Modal.Title>
                                     </div>
                                 </Col>
@@ -148,7 +164,7 @@ export default function AddProduct(props) {
                                                         </FormControl>
                                                     </Form.Group>
                                                     <Form.Group controlId='image'>
-                                                        <Form.Control placeholder="image" name="image" type="file" onChange={(e) => setimage(e.target.files)} />
+                                                        <Form.Control placeholder="image" name="image" type="file" onChange={(e) => uploadImage(e)} />
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
@@ -177,45 +193,3 @@ export default function AddProduct(props) {
 
 
 
-// <Row>
-// <Col md={12}>
-//     <Row>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='city'>
-//                 <Form.Control placeholder="city" name="city" type="city" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='street'>
-//                 <Form.Control placeholder="street" name="street" type="street" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='street number'>
-//                 <Form.Control placeholder="street number" name="street number" type="street number" />
-//             </Form.Group>
-//         </Col>
-//     </Row>
-// </Col>
-// </Row>
-// <Row>
-// <Col md={12}>
-//     <Row>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='zipcode'>
-//                 <Form.Control placeholder="zipcode" name="zipcode" type="zipcode" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='lat'>
-//                 <Form.Control placeholder="lat" name="lat" type="lat" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='long'>
-//                 <Form.Control placeholder="long" name="long" type="long" />
-//             </Form.Group>
-//         </Col>
-//     </Row>
-// </Col>
-// </Row>

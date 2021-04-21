@@ -1,4 +1,4 @@
-import { Route, Redirect, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import React from 'react'
 export default function ProtectedRoute(props) {

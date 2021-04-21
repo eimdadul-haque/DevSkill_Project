@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-import { Link, NavLink } from 'react-router-dom'
 import style from './Footer.module.css'
 import { Facebook, Instagram, Twitter, YouTube, Phone, Email } from '@material-ui/icons'
 

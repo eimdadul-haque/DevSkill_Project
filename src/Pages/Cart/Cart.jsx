@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Col, Row, Card, Button, Container, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeFromCart, clearCart } from '../../Redux/Actions/cartActions'
 import { Delete } from '@material-ui/icons'
 import { useHistory, Link } from 'react-router-dom'
-import Navigation from '../../components/Navigation'
+import Navigation from '../../components/Navigation/Navigation'
 
 
 export default function Cart() {
     const { cartList } = useSelector(state => state.cartStore);
     const dispatch = useDispatch();
-    const [state, setstate] = useState('');
     const history = useHistory()
 
 
