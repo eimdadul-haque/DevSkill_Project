@@ -21,7 +21,7 @@ export default function Details() {
         if (product && param.id !== product.id) {
             dispatch(getProdutsDetails(param.id));
         }
-    }, [dispatch, param.id, product])
+    }, [])
 
 
     const ADD_cart = (id) => {
