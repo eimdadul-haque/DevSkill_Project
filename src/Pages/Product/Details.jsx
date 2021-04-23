@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { getProdutsDetails } from '../../Redux/Actions/productActions'
-import { addToCart } from '../../Redux/Actions/cartActions'
 import Navigation from '../../components/Navigation/Navigation'
 import FadeLoader from 'react-spinners/FadeLoader'
 import style from './Details.module.css'
@@ -25,7 +24,6 @@ export default function Details() {
 
 
     const ADD_cart = (id) => {
-        dispatch(addToCart(param.id, Qty))
     }
 
     return (

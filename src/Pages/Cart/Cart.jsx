@@ -1,36 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row, Card, Button, Container, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToCart, removeFromCart, clearCart } from '../../Redux/Actions/cartActions'
 import { Delete } from '@material-ui/icons'
 import { useHistory, Link } from 'react-router-dom'
 import Navigation from '../../components/Navigation/Navigation'
 
 
 export default function Cart() {
-    const { cartList } = useSelector(state => state.cartStore);
+    var cartList = []
     const dispatch = useDispatch();
     const history = useHistory()
 
+    useEffect(() => {
 
-    const qtyChange = (id, qty) => {
-        dispatch(addToCart(id, qty))
-    }
+    }, [])
 
-    const removeCart = (id) => {
-        dispatch(removeFromCart(id))
-    }
 
-    const clear = () => {
-        dispatch(clearCart())
-    }
 
     return (
         <> <Navigation />
             <div style={{ height: '100vh' }}>
                 <Container className='d-flex justify-content-center align-content-center'>
                     {cartList.length === 0 ? <div>
-                        <h3 style={{marginTop:'50px'}}>Your cart is empty</h3> click <Link to='/'>here</Link> to continue shopping.
+                        <h3 style={{ marginTop: '50px' }}>Your cart is empty</h3> click <Link to='/'>here</Link> to continue shopping.
                     </div> :
 
                         <div>
@@ -56,14 +48,14 @@ export default function Cart() {
                                                             <td>{data.name}</td>
                                                             <td>${data.price} </td>
                                                             <td>
-                                                                <select value={data.qty} onChange={(e) => qtyChange(data.id, e.target.value)}>
+                                                                <select value={data.qty} >
                                                                     {[...Array(data.stock).keys()].map((data) => (
                                                                         <option key={data + 1} value={data + 1}>{data + 1}</option>
                                                                     ))}
 
                                                                 </select>
                                                             </td>
-                                                            <td ><span className='text-danger' onClick={() => removeCart(data.id)}><Delete /></span></td>
+                                                            <td ><span className='text-danger' ><Delete /></span></td>
                                                         </tr>
                                                     </tbody>
                                                 )
@@ -72,7 +64,7 @@ export default function Cart() {
                                     </Table>
                                     <div>
                                         <button className='btn btn-outline-info' onClick={() => { history.push('/') }}>CONTINUE SHOPPING</button>
-                                        <button className='btn btn-outline-secondary ml-3' onClick={() => clear()}>CLEAR CART</button>
+                                        <button className='btn btn-outline-secondary ml-3' >CLEAR CART</button>
                                     </div>
                                 </Col>
                                 <Col md={4}>

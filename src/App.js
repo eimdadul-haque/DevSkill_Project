@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProduts } from './Redux/Actions/productActions';
 import Loader from 'react-spinners/FadeLoader'
 import './index.css'
-import { getCatagoty } from './Redux/Actions/categoryActions'
 import { getallOrder } from './Redux/Actions/orderActions'
+import { getCart } from './Redux/Actions/cartActions'
 function App() {
 
   const { loding } = useSelector(state => state.ProductStore)
@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getProduts());
-    dispatch(getCatagoty());
+    dispatch(getCart());
     dispatch(getallOrder());
   }, [dispatch])
 

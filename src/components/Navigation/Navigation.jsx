@@ -1,25 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Navbar, Nav, Form, FormControl, Container } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
 import { ShoppingCart } from '@material-ui/icons';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Badge } from '@material-ui/core'
+import { getCart } from '../../Redux/Actions/cartActions'
 
 export default function Navigation() {
 
-
-    const { cartList } = useSelector(state => state.cartStore);
-
-    const getCount = () => {
-        return cartList.reduce((qty, item) => qty + item.qty, 0);
-    }
+    var { cartNum } = useSelector(state => state.getCartStore)
+    const dispatch = useDispatch()
+    const [state, setstate] = useState('')
 
     const logout = () => {
         sessionStorage.clear();
+        dispatch(getCart());
     }
 
     return (
@@ -52,7 +51,7 @@ export default function Navigation() {
                         }
                         <Nav className="mr-3">
                             <NavLink style={{ textDecoration: 'none', borderRadius: '10px' }} to='/cart' className='d-inline p-1 bg-dark text-white'>
-                                <Badge badgeContent={getCount()} color='secondary'><ShoppingCart style={{ height: '25px', width: '25px' }} /></Badge>
+                                <Badge badgeContent={cartNum.length} color='secondary'><ShoppingCart style={{ height: '25px', width: '25px' }} /></Badge>
                             </NavLink>
                         </Nav>
                         {

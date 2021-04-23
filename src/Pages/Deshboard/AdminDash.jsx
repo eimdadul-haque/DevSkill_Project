@@ -18,6 +18,7 @@ import EditCategory from './CRUD Modal/Category/EditCategory'
 import AddCategory from './CRUD Modal/Category/AddCategory'
 import { Delete } from '@material-ui/icons'
 import { Edit } from '@material-ui/icons'
+import { getCart } from '../../Redux/Actions/cartActions'
 
 function AdminDash() {
 
@@ -38,6 +39,7 @@ function AdminDash() {
     useEffect(() => {
         dispatch(getProduts());
         dispatch(getCatagoty());
+        dispatch(getCart());
         setloader(false);
     }, [dispatch])
 

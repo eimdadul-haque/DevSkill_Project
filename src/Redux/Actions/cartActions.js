@@ -1,24 +1,34 @@
 import { ActionType } from '../ActionType';
 import axios from 'axios';
-import {  API_LINK } from '../../API_LINK/API_LINK'
+import { API_LINK } from '../../API_LINK/API_LINK'
 
-export const addToCart = (id, qty) => (dispatch, getState) => {
+
+
+export const getCart = () => async (dispatch, getState) => {
 
     try {
-        axios.post(API_LINK + "cart/", {
-            product: [{
-                quantity: parseInt(qty)
-            }
-            ]
-        },
+        axios.get(API_LINK + "cart/",
             {
                 headers: {
-                    authorization: "bearer" + sessionStorage.getItem('token')
+                    authorization: "bearer " + sessionStorage.getItem('token')
                 }
             }
 
         )
-            .then(res => console.log(res))
+            .then(res => {
+                console.log();
+                if (res.data.products) {
+                    dispatch({
+                        type: ActionType.GET_CART,
+                        payload: res.data.products
+                    })
+                } else {
+                    dispatch({
+                        type: ActionType.GET_CART,
+                        payload: []
+                    })
+                }
+            })
             .catch(res => res)
     } catch (error) {
 
@@ -27,64 +37,3 @@ export const addToCart = (id, qty) => (dispatch, getState) => {
 }
 
 
-
-export const removeFromCart = (id) => (dispatch, getState) => {
-    dispatch({
-        type: ActionType.REMOVE_CART,
-        payload: id
-    })
-
-    localStorage.setItem("cart", JSON.stringify(getState().cartStore.cartList))
-}
-
-export const clearCart = (id) => (dispatch, getState) => {
-    dispatch({
-        type: ActionType.CLEAR_CART
-    })
-
-    localStorage.setItem("cart", JSON.stringify(getState().cartStore.cartList))
-
-}
-
-
-export const cartAction = (title, price, description, image, stock, category) => async (dispatch, getState) => {
-    try {
-        fetch(API_LINK + "products/", {
-            method: "POST",
-            headers: {
-                authorization: "bearer " + sessionStorage.getItem('token')
-            },
-            body: JSON.stringify({
-                title: title,
-                price: price,
-                description: description,
-                image: image,
-                stock: stock,
-                category: category
-            }),
-        })
-            .then((res) => res.json())
-            .then((json) => console.log(json));
-    } catch (error) {
-
-    }
-
-
-}
-
-// export const addToCart = (id, qty) => async (dispatch, getState) => {
-//     const { data } = await axios.get(LINK + id);
-//     dispatch({
-//         type: ActionType.ADD_CART,
-//         payload: {
-//             id: data.id,
-//             name: data.title,
-//             img: data.image,
-//             price: data.price,
-//             stock: data.stock,
-//             qty: parseInt(qty)
-//         }
-//     })
-
-//     localStorage.setItem("cart", JSON.stringify(getState().cartStore.cartList));
-// }

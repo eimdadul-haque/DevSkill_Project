@@ -39,6 +39,9 @@ export const ActionType = {
     //Edit Id
 
     EDIT_ID: "EDIT_ID",
-    EDIT_CATEGORY_ID: "EDIT_CATEGORY_ID"
+    EDIT_CATEGORY_ID: "EDIT_CATEGORY_ID",
+
+    //
+    GET_CART : "GET_CART"
 
 }
