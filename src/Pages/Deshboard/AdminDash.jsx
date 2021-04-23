@@ -21,6 +21,8 @@ import { Edit } from '@material-ui/icons'
 
 function AdminDash() {
 
+
+
     const { products } = useSelector(state => state.ProductStore)
     const { catagory } = useSelector(state => state.catagoryStore)
     const { orderList } = useSelector(state => state.OrderStore)
@@ -32,17 +34,20 @@ function AdminDash() {
     const { AddcatagoryModal } = useSelector(state => state.catagorAddModalStore)
     const [loader, setloader] = useState(true)
     const dispatch = useDispatch();
+
     useEffect(() => {
         dispatch(getProduts());
         dispatch(getCatagoty());
         setloader(false);
-    }, [module, edit, catagoryModal, AddcatagoryModal, dispatch])
+    }, [dispatch])
 
     const removeProduct = (id) => {
         dispatch(productDelete(id))
+        dispatch(getProduts());
     }
     const removeCategory = (id) => {
         dispatch(categorytDelete(id))
+        dispatch(getCatagoty());
     }
 
     return (
