@@ -13,13 +13,15 @@ export default function Details() {
 
     const dispatch = useDispatch();
     const param = useParams();
-    const { loding, product } = useSelector(state => state.ProductDetailsStore);
+    const { product } = useSelector(state => state.ProductDetailsStore);
+    const [loding, setloding] = useState(true)
     const [Qty, setQty] = useState(1)
 
     useEffect(() => {
         if (product && param.id !== product.id) {
             dispatch(getProdutsDetails(param.id));
         }
+        setloding(false)
     }, [])
 
 

@@ -197,46 +197,45 @@ function AdminDash() {
                                 </Row>
                                 <Row className='mt-2 mb-2'  >
                                     <Col sm={12} md={6} >
-                                        <Card className='shadow card_D'>
+                                    <Card className='shadow'>
                                             <Card.Header className='d-flex justify-content-between'>
                                                 <div className='text-info'>
-                                                    User Table
-                                                </div>
-
-                                                <div >
-                                                    <Button variant='outline-dark'>Add User</Button>
+                                                    Order Table
                                                 </div>
                                             </Card.Header>
-                                            <Table striped bordered hover>
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td colSpan="2">Larry the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
-                                                </tbody>
-                                            </Table>
+                                            <div className={style.scrollbar}>
+                                                <Table striped bordered hover style={{ backgroundColor: 'white' }} >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>User Id</th>
+                                                            <th>Date</th>
+                                                            <th>Product Id</th>
+                                                            <th>Quantity</th>
+                                                        </tr>
+                                                    </thead>
+                                                    {
+                                                        catagory.length === 0 ? "No data in database" :
+                                                            <> <tbody >
+                                                                {
+                                                                    catagory.map((data, index) => {
+                                                                        return (
 
+
+                                                                            <tr key={index}>
+                                                                                <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
+                                                                                <td>{data.name}</td>
+                                                                                <td>{data.description} </td>
+                                                                                <td ></td>
+                                                                            </tr>
+
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </tbody>
+                                                            </>
+                                                    }
+                                                </Table>
+                                            </div>
                                         </Card>
                                         {/* <AddProduct show={modal} onHide={() => setmodal(false)} /> */}
                                     </Col>

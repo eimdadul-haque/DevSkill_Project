@@ -24,10 +24,6 @@ export const getProduts = () => async (dispatch) => {
 export const getProdutsDetails = (id) => async (dispatch) => {
 
     try {
-        dispatch({
-            type: ActionType.GET_PRODUCT_DETAILS_REQUEST
-        })
-
         axios.get(API_LINK + "products/" + id)
             .then(res => {
                 dispatch({
@@ -39,11 +35,7 @@ export const getProdutsDetails = (id) => async (dispatch) => {
 
 
     } catch (error) {
-        dispatch({
-            type: ActionType.GET_PRODUCT_DETAILS_FAIL,
-            payload: error.response && error.response.data.message ?
-                error.response.data.message : error.message
-        })
+
     }
 
 }
