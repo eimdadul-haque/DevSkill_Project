@@ -30,7 +30,7 @@ export default function Products() {
                         <Container className={""}>
                             <Row className={style.row}>
                                 {
-                                    products.length === 0 ? <div className='d-flex justify-content-center align-items-center'><span>No data in database...</span></div> :
+                                    products.length === 0 ? <div className='d-flex justify-content-center align-items-center '><span style={{height:'100vh'}}>No data in database...</span></div> :
                                         <>
                                             {
                                                 products.map((data, index) => {

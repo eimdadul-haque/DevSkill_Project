@@ -1,6 +1,6 @@
 import '../../index.css'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { getProdutsDetails } from '../../Redux/Actions/productActions'
@@ -11,8 +11,10 @@ import Footer from '../../components/Footer/Footer'
 
 export default function Details() {
 
+    const history = useHistory();
     const dispatch = useDispatch();
     const param = useParams();
+
     const { product } = useSelector(state => state.ProductDetailsStore);
     const [loding, setloding] = useState(true)
     const [Qty, setQty] = useState(1)
@@ -26,6 +28,21 @@ export default function Details() {
 
 
     const ADD_cart = (id) => {
+        if (sessionStorage.getItem('token')) {
+
+        }
+        else {
+            history.push('/login');
+        }
+    }
+
+    const buy_it = (id) => {
+        if (sessionStorage.getItem('token')) {
+
+        }
+        else {
+            history.push('/login');
+        }
     }
 
     return (
@@ -51,7 +68,7 @@ export default function Details() {
                                             ))}
                                         </select></b></p>
                                         <Button className={style.btn_cart} onClick={() => ADD_cart(product._id)} variant='dark'>ADD TO CART</Button>
-                                        <Button className={style.btn_buy} variant='outline-dark'>BUY IT NOW</Button>
+                                        <Button className={style.btn_buy} onClick={() => buy_it(product._id)} variant='outline-dark'>BUY IT NOW</Button>
                                     </div>
                                 </div>
                             </Col>

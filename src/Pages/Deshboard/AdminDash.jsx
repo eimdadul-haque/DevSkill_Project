@@ -96,7 +96,7 @@ function AdminDash() {
                                     <Col sm={12} md={6} >
                                         <Card className='shadow'>
                                             <Card.Header className='d-flex justify-content-between'>
-                                                <div className='text-info'>
+                                                <div className='text-info font-weight-bolder'>
                                                     Product Table
                                                 </div>
                                                 <div >
@@ -148,7 +148,7 @@ function AdminDash() {
                                     <Col sm={12} md={6} >
                                         <Card className='shadow'>
                                             <Card.Header className='d-flex justify-content-between'>
-                                                <div className='text-info'>
+                                                <div className=' text-info font-weight-bolder'>
                                                     Category Table
                                                 </div>
                                                 <div >
@@ -199,7 +199,7 @@ function AdminDash() {
                                     <Col sm={12} md={6} >
                                     <Card className='shadow'>
                                             <Card.Header className='d-flex justify-content-between'>
-                                                <div className='text-info'>
+                                                <div className='text-info font-weight-bolder'>
                                                     Order Table
                                                 </div>
                                             </Card.Header>
@@ -240,9 +240,9 @@ function AdminDash() {
                                         {/* <AddProduct show={modal} onHide={() => setmodal(false)} /> */}
                                     </Col>
                                     <Col sm={12} md={6} >
-                                        <Card className='shadow card_D'>
+                                        <Card className='shadow '>
                                             <Card.Header className='d-flex justify-content-between'>
-                                                <div className='text-info'>
+                                                <div className='text-info font-weight-bolder'>
                                                     User Table
                                                 </div>
 
