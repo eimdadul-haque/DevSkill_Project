@@ -8,7 +8,7 @@ export const getallOrder = () => async (dispatch, getState) => {
     try {
         const { data } = await axios.get(API_LINK + 'order/', {
             headers: {
-                authorization: "bearer" + sessionStorage.getItem('token')
+                authorization: "bearer " + sessionStorage.getItem('token')
             }
         });
         dispatch({
@@ -20,3 +20,4 @@ export const getallOrder = () => async (dispatch, getState) => {
 
     }
 }
+

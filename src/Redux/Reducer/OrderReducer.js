@@ -14,3 +14,18 @@ export const getOrderReducer = (state = { orderList: [] }, action) => {
     }
 
 }
+
+export const addOrderReducer = (state = { order: [] }, action) => {
+    switch (action.type) {
+
+        case ActionType.ADD_ORDER:
+            return {
+                ...state,
+                order: action.payload
+            }
+
+        default:
+            return state;
+    }
+
+}

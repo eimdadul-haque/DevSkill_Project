@@ -1,6 +1,7 @@
 import { ActionType } from '../ActionType';
 import axios from 'axios';
 import { API_LINK } from '../../API_LINK/API_LINK'
+import {getallOrder} from './orderActions'
 
 
 
@@ -38,7 +39,7 @@ export const getCart = () => async (dispatch, getState) => {
 
 
 export const addCart = (_id, qty) => async (dispatch, getState) => {
-console.log(_id,"===add");
+    console.log(_id, "===add");
     try {
         axios.post(API_LINK + "cart/", {
             product: {
@@ -81,4 +82,21 @@ export const remove = (_id) => async (dispatch, getState) => {
 
     }
 
+}
+
+export const cartCheckout = () => async (dispatch, getState) => {
+    try {
+        axios.get(API_LINK + 'order/checkout', {
+            headers: {
+                authorization: "bearer " + sessionStorage.getItem('token')
+            }
+        }).then(res => {
+            getallOrder()
+        })
+            .catch(res => res);
+
+
+    } catch (error) {
+
+    }
 }

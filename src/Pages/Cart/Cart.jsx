@@ -3,7 +3,7 @@ import { Col, Row, Card, Button, Container, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { Delete } from '@material-ui/icons'
 import { useHistory, Link } from 'react-router-dom'
-import { remove } from '../../Redux/Actions/cartActions'
+import { remove, cartCheckout, getCart } from '../../Redux/Actions/cartActions'
 import Navigation from '../../components/Navigation/Navigation'
 
 
@@ -17,6 +17,7 @@ export default function Cart() {
     const history = useHistory()
 
     useEffect(() => {
+        dispatch(getCart());
         setloding(false)
     }, [])
 
@@ -29,6 +30,10 @@ export default function Cart() {
 
     const removeCart = (id) => {
         dispatch(remove(id))
+    }
+
+    const checkout = () => {
+        dispatch(cartCheckout())
     }
     return (
         <> <Navigation />
@@ -82,7 +87,7 @@ export default function Cart() {
                                                 <p className='text-danger font-weight-bold'>${price}</p>
                                             </Card.Body>
                                             <Card.Footer>
-                                                <Button style={{ width: '100%' }} className='btn btn-dark '>Checkout</Button>
+                                                <Button onClick={() => checkout()} style={{ width: '100%' }} className='btn btn-dark '>Checkout</Button>
                                             </Card.Footer>
                                         </Card>
                                     </Col>

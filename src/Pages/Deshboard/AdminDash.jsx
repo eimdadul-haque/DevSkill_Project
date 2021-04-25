@@ -18,6 +18,7 @@ import EditCategory from './CRUD Modal/Category/EditCategory'
 import AddCategory from './CRUD Modal/Category/AddCategory'
 import { Delete } from '@material-ui/icons'
 import { Edit } from '@material-ui/icons'
+import { getallOrder } from '../../Redux/Actions/orderActions'
 import { getCart } from '../../Redux/Actions/cartActions'
 
 function AdminDash() {
@@ -27,7 +28,6 @@ function AdminDash() {
     const { products } = useSelector(state => state.ProductStore)
     const { catagory } = useSelector(state => state.catagoryStore)
     const { orderList } = useSelector(state => state.OrderStore)
-
 
     const { module } = useSelector(state => state.ProductModalStore)
     const { edit } = useSelector(state => state.productEditmodalStore)
@@ -40,6 +40,7 @@ function AdminDash() {
         dispatch(getProduts());
         dispatch(getCatagoty());
         dispatch(getCart());
+        dispatch(getallOrder());
         setloader(false);
     }, [dispatch])
 
@@ -197,7 +198,7 @@ function AdminDash() {
                                 </Row>
                                 <Row className='mt-2 mb-2'  >
                                     <Col sm={12} md={6} >
-                                    <Card className='shadow'>
+                                        <Card className='shadow'>
                                             <Card.Header className='d-flex justify-content-between'>
                                                 <div className='text-info font-weight-bolder'>
                                                     Order Table
@@ -207,25 +208,19 @@ function AdminDash() {
                                                 <Table striped bordered hover style={{ backgroundColor: 'white' }} >
                                                     <thead>
                                                         <tr>
-                                                            <th>User Id</th>
-                                                            <th>Date</th>
-                                                            <th>Product Id</th>
-                                                            <th>Quantity</th>
+                                                            <th>Order ID</th>
+                                                            <th>User Name</th>
                                                         </tr>
                                                     </thead>
                                                     {
-                                                        catagory.length === 0 ? "No data in database" :
+                                                        orderList.length === 0 ? "No data in database" :
                                                             <> <tbody >
                                                                 {
-                                                                    catagory.map((data, index) => {
+                                                                    orderList.map((data, index) => {
                                                                         return (
-
-
                                                                             <tr key={index}>
-                                                                                <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
-                                                                                <td>{data.name}</td>
-                                                                                <td>{data.description} </td>
-                                                                                <td ></td>
+                                                                                <td>{data._id}</td>
+                                                                                <td>{data.userId.username}</td>
                                                                             </tr>
 
                                                                         )
