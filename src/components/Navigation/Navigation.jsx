@@ -11,11 +11,16 @@ import { Badge } from '@material-ui/core'
 import { getCart } from '../../Redux/Actions/cartActions'
 
 export default function Navigation() {
-
+    var sum = 0;
     var { cartNum } = useSelector(state => state.getCartStore)
     const dispatch = useDispatch()
     const [state, setstate] = useState('')
 
+    if (cartNum) {
+        for (let index = 0; index < cartNum.length; index++) {
+            var sum = sum + cartNum[index].quantity;
+        }
+    }
     const logout = () => {
         sessionStorage.clear();
         dispatch(getCart());
@@ -51,7 +56,7 @@ export default function Navigation() {
                         }
                         <Nav className="mr-3">
                             <NavLink style={{ textDecoration: 'none', borderRadius: '10px' }} to='/cart' className='d-inline p-1 bg-dark text-white'>
-                                <Badge badgeContent={cartNum.length} color='secondary'><ShoppingCart style={{ height: '25px', width: '25px' }} /></Badge>
+                                <Badge badgeContent={sum} color='secondary'><ShoppingCart style={{ height: '25px', width: '25px' }} /></Badge>
                             </NavLink>
                         </Nav>
                         {

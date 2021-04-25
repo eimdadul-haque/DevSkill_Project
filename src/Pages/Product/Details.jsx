@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Container, Row, Button } from 'react-bootstrap';
 import { getProdutsDetails } from '../../Redux/Actions/productActions'
+import { addCart } from '../../Redux/Actions/cartActions'
 import Navigation from '../../components/Navigation/Navigation'
 import FadeLoader from 'react-spinners/FadeLoader'
 import style from './Details.module.css'
@@ -29,7 +30,7 @@ export default function Details() {
 
     const ADD_cart = (id) => {
         if (sessionStorage.getItem('token')) {
-
+            dispatch(addCart(id, Qty))
         }
         else {
             history.push('/login');
@@ -38,7 +39,7 @@ export default function Details() {
 
     const buy_it = (id) => {
         if (sessionStorage.getItem('token')) {
-
+            
         }
         else {
             history.push('/login');
@@ -63,7 +64,7 @@ export default function Details() {
                                         <p ><b>Price:</b> {product.price} $</p>
                                         <p ><b>Availability:</b> {product.stock > 0 ? 'In stock' : "out of stock"}</p>
                                         <p><b>Quantity:<select className='btn btn-outline-dark' value={Qty} onChange={(e) => setQty(e.target.value)}>
-                                            {[...Array(product.stock).keys()].map((data) => (
+                                            {[...Array(100).keys()].map((data) => (
                                                 <option key={data + 1} value={data + 1}>{data + 1}</option>
                                             ))}
                                         </select></b></p>
