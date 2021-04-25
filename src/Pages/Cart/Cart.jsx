@@ -9,6 +9,7 @@ import Navigation from '../../components/Navigation/Navigation'
 
 export default function Cart() {
 
+    var price = 0
     const [loding, setloding] = useState(true)
     var { cartNum, cart } = useSelector(state => state.getCartStore)
     console.log(cartNum, "===cartNum");
@@ -19,10 +20,15 @@ export default function Cart() {
         setloding(false)
     }, [])
 
+    if (cartNum) {
+        cartNum.map((data) => {
+            price = price + data.productId.price
+        }
+        )
+    }
 
     const removeCart = (id) => {
         dispatch(remove(id))
-        console.log(id, "===id");
     }
     return (
         <> <Navigation />
@@ -59,7 +65,9 @@ export default function Cart() {
                                                                 <td ><span className='text-danger' onClick={() => removeCart(cart._id)} ><Delete /></span></td>
                                                             </tr>
                                                         </tbody>
+
                                                     )
+
                                                 })
                                             }
                                         </Table>
@@ -70,7 +78,8 @@ export default function Cart() {
                                     <Col md={4}>
                                         <Card style={{ width: '18rem' }}>
                                             <Card.Body>
-
+                                                <p className='text-dark font-weight-bold'>Order Total	</p>
+                                                <p className='text-danger font-weight-bold'>${price}</p>
                                             </Card.Body>
                                             <Card.Footer>
                                                 <Button style={{ width: '100%' }} className='btn btn-dark '>Checkout</Button>
