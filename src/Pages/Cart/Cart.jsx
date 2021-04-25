@@ -65,7 +65,6 @@ export default function Cart() {
                                         </Table>
                                         <div>
                                             <button className='btn btn-outline-info' onClick={() => { history.push('/') }}>CONTINUE SHOPPING</button>
-                                            <button className='btn btn-outline-secondary ml-3' >CLEAR CART</button>
                                         </div>
                                     </Col>
                                     <Col md={4}>

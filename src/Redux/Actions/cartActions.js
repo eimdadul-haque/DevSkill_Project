@@ -38,7 +38,7 @@ export const getCart = () => async (dispatch, getState) => {
 
 
 export const addCart = (_id, qty) => async (dispatch, getState) => {
-
+console.log(_id,"===add");
     try {
         axios.post(API_LINK + "cart/", {
             product: {
