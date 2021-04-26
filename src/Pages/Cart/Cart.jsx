@@ -33,7 +33,6 @@ export default function Cart() {
 
     const checkout = () => {
         dispatch(cartCheckout())
-        window.location.reload()
         history.push('/')
     }
     return (

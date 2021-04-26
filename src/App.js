@@ -19,7 +19,7 @@ function App() {
     dispatch(getProduts());
     dispatch(getCart());
     dispatch(getallOrder());
-  }, [dispatch])
+  }, [])
 
   return (
     < >
