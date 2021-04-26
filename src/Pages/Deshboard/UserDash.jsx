@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import style from './AdminDash.module.css'
+import style from './UserDash.module.css'
 import FadeLoader from 'react-spinners/FadeLoader'
 import '.././../index.css'
 import Navigation from '../../components/Navigation/Navigation'
 import { Container, Row, Col, Card, Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-    productModaloff, productModalon, EditproductModalon, EditproductModaloff, EditcategoryModalon,
-    EditcategoryModaloff, AddcategoryModaloff, AddcategoryModalon
-} from '../../Redux/Actions/modalAction'
 import { getProduts, productDelete } from '../../Redux/Actions/productActions'
 import { categorytDelete, getCatagoty } from '../../Redux/Actions/categoryActions'
 import Footer from '../../components/Footer/Footer'
-import AddProduct from './CRUD Modal/Product/AddProduct'
-import Editproduct from './CRUD Modal/Product/Editproduct'
-import EditCategory from './CRUD Modal/Category/EditCategory'
-import AddCategory from './CRUD Modal/Category/AddCategory'
-import { Delete } from '@material-ui/icons'
-import { Edit } from '@material-ui/icons'
 import { getCart } from '../../Redux/Actions/cartActions'
 
 function AdminDash() {

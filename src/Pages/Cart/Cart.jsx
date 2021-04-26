@@ -11,8 +11,7 @@ export default function Cart() {
 
     var price = 0
     const [loding, setloding] = useState(true)
-    var { cartNum, cart } = useSelector(state => state.getCartStore)
-    console.log(cartNum, "===cartNum");
+    var { cartNum } = useSelector(state => state.getCartStore)
     const dispatch = useDispatch();
     const history = useHistory()
 
@@ -34,6 +33,8 @@ export default function Cart() {
 
     const checkout = () => {
         dispatch(cartCheckout())
+        window.location.reload()
+        history.push('/')
     }
     return (
         <> <Navigation />
@@ -67,7 +68,7 @@ export default function Cart() {
                                                                 <td>{data.productId.title}</td>
                                                                 <td>${data.productId.price} </td>
                                                                 <td>{data.quantity} </td>
-                                                                <td ><span className='text-danger' onClick={() => removeCart(cart._id)} ><Delete /></span></td>
+                                                                <td ><span className='text-danger'  ><Delete /></span></td>
                                                             </tr>
                                                         </tbody>
 

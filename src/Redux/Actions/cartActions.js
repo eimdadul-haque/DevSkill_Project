@@ -17,11 +17,11 @@ export const getCart = () => async (dispatch, getState) => {
 
         )
             .then(res => {
-                console.log();
+
                 if (res.data.products) {
                     dispatch({
                         type: ActionType.GET_CART,
-                        payload: res.data
+                        payload: res.data.products
                     })
                 } else {
                     dispatch({
@@ -39,7 +39,6 @@ export const getCart = () => async (dispatch, getState) => {
 
 
 export const addCart = (_id, qty) => async (dispatch, getState) => {
-    console.log(_id, "===add");
     try {
         axios.post(API_LINK + "cart/", {
             product: {
@@ -86,7 +85,7 @@ export const remove = (_id) => async (dispatch, getState) => {
 
 export const cartCheckout = () => async (dispatch, getState) => {
     try {
-        axios.get(API_LINK + 'order/checkout', {
+        axios.get(API_LINK + 'order/checkout/', {
             headers: {
                 authorization: "bearer " + sessionStorage.getItem('token')
             }
