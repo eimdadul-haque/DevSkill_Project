@@ -31,6 +31,7 @@ export default function Details() {
     const ADD_cart = (id) => {
         if (sessionStorage.getItem('token')) {
             dispatch(addCart(id, Qty))
+            history.push('/');
         }
         else {
             history.push('/login');
