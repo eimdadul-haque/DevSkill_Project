@@ -4,6 +4,7 @@ import { loginReducer, signupReducer } from '../Reducer/AccountReducer'
 import { catagoryReducer, catagorDetailsyReducer, Edit_Id } from '../Reducer/CatagoryReducer'
 import { getOrderReducer, addOrderReducer } from '../Reducer/OrderReducer'
 import { getCartReducer } from '../Reducer/CartReducer'
+import { userIdReducer } from '../Reducer/userReducer'
 import { productmodalReducr, productEditmodalReducr, catagorEditModalReducer, catagorAddModalReducer } from '../Reducer/ModalReducer'
 import thunk from 'redux-thunk'
 
@@ -23,7 +24,8 @@ const mainReducetr = combineReducers({
     catagorEditIdStore: Edit_Id,
     catagorAddModalStore: catagorAddModalReducer,
     getCartStore: getCartReducer,
-    addOrderStore: addOrderReducer
+    addOrderStore: addOrderReducer,
+    UserIdStore: userIdReducer
 
 });
 

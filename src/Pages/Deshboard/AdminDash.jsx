@@ -3,7 +3,7 @@ import style from './AdminDash.module.css'
 import FadeLoader from 'react-spinners/FadeLoader'
 import '.././../index.css'
 import Navigation from '../../components/Navigation/Navigation'
-import { Container, Row, Col, Card, Table, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, Table, Button, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     productModaloff, productModalon, EditproductModalon, EditproductModaloff, EditcategoryModalon,
@@ -20,11 +20,15 @@ import { Delete } from '@material-ui/icons'
 import { Edit } from '@material-ui/icons'
 import { getallOrder } from '../../Redux/Actions/orderActions'
 import { getCart } from '../../Redux/Actions/cartActions'
+import { userIdAction } from '../../Redux/Actions/userActions'
+import { useHistory } from 'react-router-dom'
+import { API_LINK } from '../../API_LINK/API_LINK'
+import axios from 'axios'
 
 function AdminDash() {
 
 
-
+    const history = useHistory()
     const { products } = useSelector(state => state.ProductStore)
     const { catagory } = useSelector(state => state.catagoryStore)
     const { orderList } = useSelector(state => state.OrderStore)
@@ -35,6 +39,8 @@ function AdminDash() {
     const { AddcatagoryModal } = useSelector(state => state.catagorAddModalStore)
     const [loader, setloader] = useState(true)
     const dispatch = useDispatch();
+    const [userId, setuserId] = useState('')
+    const [delUser, setdelUser] = useState('')
 
 
     useEffect(() => {
@@ -45,6 +51,7 @@ function AdminDash() {
         setloader(false);
     }, [])
 
+
     const removeProduct = (id) => {
         dispatch(productDelete(id))
         dispatch(getProduts());
@@ -53,6 +60,26 @@ function AdminDash() {
     const removeCategory = (id) => {
         dispatch(categorytDelete(id))
         dispatch(getCatagoty());
+    }
+
+    const user_id = (_id) => {
+        dispatch(userIdAction(_id))
+        history.push('/UpdateUser')
+    }
+
+    const add_user = () => {
+        history.push('/AddUser')
+
+    }
+    const deleteUser = (id) => {
+        console.log(id, "dell");
+        axios.delete(API_LINK + 'user/' + id, {
+            headers: {
+                authorization: "bearer " + sessionStorage.getItem('token')
+            }
+        })
+            .then((res) => res.json())
+            .catch((err) => err)
     }
 
     return (
@@ -240,33 +267,39 @@ function AdminDash() {
                                                 </Table>
                                             </div>
                                         </Card>
-                                        {/* <AddProduct show={modal} onHide={() => setmodal(false)} /> */}
                                     </Col>
                                     <Col sm={12} md={6} >
                                         <Card className='shadow '>
                                             <Card.Header className='d-flex justify-content-between'>
-                                                <div className='text-info font-weight-bolder'>
-                                                    User Table
+                                                <div className=' text-info font-weight-bolder'>
+                                                    User Section
                                                 </div>
-
                                                 <div >
-                                                    <Button variant='outline-dark'>Add User</Button>
+                                                    <Button onClick={() => add_user()} variant='outline-dark'>Add User</Button>
                                                 </div>
                                             </Card.Header>
-                                            <Table striped bordered hover>
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Username</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                </tbody>
-                                            </Table>
-
+                                            <Card.Body>
+                                                <div className='row'>
+                                                    <Col lg={9}>
+                                                        <Form.Group controlId='deleteUser'>
+                                                            <Form.Control placeholder="Enter User Id" name="deleteUser" type="text" onChange={(e) => setdelUser(e.target.value)} />
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col lg={3}>
+                                                        <Button style={{ width: '100%' }} onClick={() => deleteUser(delUser)} variant='danger'>Delete</Button>
+                                                    </Col>
+                                                </div>
+                                                <Row>
+                                                    <Col lg={9}>
+                                                        <Form.Group controlId='editUser'>
+                                                            <Form.Control placeholder="Enter User Id" name="editUser" type="text" onChange={(e) => setuserId(e.target.value)} />
+                                                        </Form.Group>
+                                                    </Col>
+                                                    <Col lg={3}>
+                                                        <Button style={{ width: '100%' }} onClick={() => user_id(userId)} variant='info'>Update</Button>
+                                                    </Col>
+                                                </Row>
+                                            </Card.Body>
                                         </Card>
                                     </Col>
                                 </Row>
