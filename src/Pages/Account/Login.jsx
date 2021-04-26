@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import Navigation from '../../components/Navigation/Navigation'
 import { API_LINK } from '../../API_LINK/API_LINK'
 import { ActionType } from '../../Redux/ActionType'
+import { getallOrder } from '../../Redux/Actions/orderActions'
 import axios from 'axios'
 
 export default function Login() {
@@ -37,7 +38,9 @@ export default function Login() {
                     sessionStorage.setItem('role', response.data.userInfo.role);
 
                     if (response.data.userInfo.token) {
+                       window.location.reload()
                         history.push('/dashboard')
+                        
                     }
 
                     dispatch({
@@ -49,7 +52,7 @@ export default function Login() {
                     })
                 })
                 .catch(function (error) {
-                    
+
                 });
 
 
@@ -64,14 +67,14 @@ export default function Login() {
         <div style={{ height: '100vh' }}>
             <Container >
                 <Row>
-                    <Col  xs={12} sm={12} md={6} lg={8}>
+                    <Col xs={12} sm={12} md={6} lg={8}>
                         <div style={{ marginTop: '30%' }}>
                             <h1>fakecommerce</h1>
                             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.<br /> Ipsam sint perspiciatis repellat quos qui voluptates animi aliquam?</p>
                         </div>
 
                     </Col>
-                    <Col xs={12}  sm={12} md={6} lg={4}>
+                    <Col xs={12} sm={12} md={6} lg={4}>
                         <Form style={{ marginTop: '35%' }}>
                             <Card className="shadow" style={{ borderRadius: '5px' }}>
                                 <Card.Body>

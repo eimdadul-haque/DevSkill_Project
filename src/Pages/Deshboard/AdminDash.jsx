@@ -36,18 +36,20 @@ function AdminDash() {
     const [loader, setloader] = useState(true)
     const dispatch = useDispatch();
 
+
     useEffect(() => {
         dispatch(getProduts());
         dispatch(getCatagoty());
         dispatch(getCart());
         dispatch(getallOrder());
         setloader(false);
-    }, [dispatch])
+    }, [])
 
     const removeProduct = (id) => {
         dispatch(productDelete(id))
         dispatch(getProduts());
     }
+    
     const removeCategory = (id) => {
         dispatch(categorytDelete(id))
         dispatch(getCatagoty());
@@ -79,14 +81,14 @@ function AdminDash() {
                                     <Col sm={12} md={6} lg={3}>
                                         <Card className='shadow '>
                                             <Card.Header className='text-center'>
-                                                Total Categoty <h6>0</h6>
+                                                Total Order <h6>{orderList.length}</h6>
                                             </Card.Header>
                                         </Card>
                                     </Col>
                                     <Col sm={12} md={6} lg={3}>
                                         <Card className='shadow '>
                                             <Card.Header className='text-center'>
-                                                Total Order <h6>0</h6>
+                                                Total User <h6>0</h6>
                                             </Card.Header>
                                         </Card>
                                     </Col>
@@ -108,6 +110,7 @@ function AdminDash() {
                                                 <Table striped bordered hover style={{ backgroundColor: 'white' }} >
                                                     <thead>
                                                         <tr>
+                                                            <th>#</th>
                                                             <th>Image</th>
                                                             <th>Title</th>
                                                             <th>Price</th>
@@ -126,6 +129,7 @@ function AdminDash() {
 
 
                                                                                 <tr key={index}>
+                                                                                    <td>{index + 1}</td>
                                                                                     <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
                                                                                     <td>{data.title}</td>
                                                                                     <td>{data.price} </td>
@@ -160,6 +164,7 @@ function AdminDash() {
                                                 <Table striped bordered hover style={{ backgroundColor: 'white' }} >
                                                     <thead>
                                                         <tr>
+                                                            <th>#</th>
                                                             <th>Image</th>
                                                             <th>Name</th>
                                                             <th>Description</th>
@@ -176,6 +181,7 @@ function AdminDash() {
 
 
                                                                             <tr key={index}>
+                                                                                <td>{index + 1}</td>
                                                                                 <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
                                                                                 <td>{data.name}</td>
                                                                                 <td>{data.description} </td>
@@ -208,6 +214,7 @@ function AdminDash() {
                                                 <Table striped bordered hover style={{ backgroundColor: 'white' }} >
                                                     <thead>
                                                         <tr>
+                                                            <th>#</th>
                                                             <th>Order ID</th>
                                                             <th>User Name</th>
                                                         </tr>
@@ -218,7 +225,8 @@ function AdminDash() {
                                                                 {
                                                                     orderList.map((data, index) => {
                                                                         return (
-                                                                            <tr key={index}>
+                                                                            <tr key={index} onClick={}>
+                                                                                <td>{index + 1}</td>
                                                                                 <td>{data._id}</td>
                                                                                 <td>{data.userId.username}</td>
                                                                             </tr>
@@ -255,23 +263,7 @@ function AdminDash() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td colSpan="2">Larry the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </Table>
 
