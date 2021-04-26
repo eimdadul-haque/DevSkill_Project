@@ -49,7 +49,7 @@ function AdminDash() {
         dispatch(productDelete(id))
         dispatch(getProduts());
     }
-    
+
     const removeCategory = (id) => {
         dispatch(categorytDelete(id))
         dispatch(getCatagoty());
@@ -225,7 +225,7 @@ function AdminDash() {
                                                                 {
                                                                     orderList.map((data, index) => {
                                                                         return (
-                                                                            <tr key={index} onClick={}>
+                                                                            <tr key={index} onClick={""}>
                                                                                 <td>{index + 1}</td>
                                                                                 <td>{data._id}</td>
                                                                                 <td>{data.userId.username}</td>
