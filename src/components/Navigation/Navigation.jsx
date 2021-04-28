@@ -5,6 +5,7 @@ import { ShoppingCart } from '@material-ui/icons';
 import { useDispatch, useSelector } from 'react-redux'
 import HomeIcon from '@material-ui/icons/Home';
 import ExitToApp from '@material-ui/icons/ExitToApp';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { Badge } from '@material-ui/core'
@@ -64,11 +65,20 @@ export default function Navigation() {
                                 <NavLink style={{ textDecoration: 'none', borderRadius: '10px' }} to='/login' className='d-inline p-1 bg-dark text-white'>
                                     <LockOpenIcon style={{ height: '25px', width: '25px' }} />
                                 </NavLink>
-                            </Nav> : <Nav >
-                                <NavLink onClick={() => logout()} style={{ textDecoration: 'none', borderRadius: '10px' }} to='/login' className='d-inline p-1 bg-dark text-white'>
-                                    <ExitToApp />
-                                </NavLink>
-                            </Nav>
+                            </Nav> : <>
+                                <Nav className="mr-3">
+                                    <NavLink style={{ textDecoration: 'none', borderRadius: '10px' }} to='/profile' className='d-inline p-1 bg-dark text-white'>
+                                      <AccountBoxIcon style={{ height: '25px', width: '25px' }} />
+                                    </NavLink>
+                                </Nav>
+                                <Nav >
+                                    <NavLink onClick={() => logout()} style={{ textDecoration: 'none', borderRadius: '10px' }} to='/login' className='d-inline p-1 bg-dark text-white'>
+                                        <ExitToApp />
+                                    </NavLink>
+                                </Nav>
+                            </>
+
+
                         }
                     </Navbar.Collapse>
                 </Container>

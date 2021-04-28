@@ -2,9 +2,9 @@ import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import { getProductDetails, getProductReducer, EditId } from '../Reducer/ProductReducer'
 import { loginReducer, signupReducer } from '../Reducer/AccountReducer'
 import { catagoryReducer, catagorDetailsyReducer, Edit_Id } from '../Reducer/CatagoryReducer'
-import { getOrderReducer, addOrderReducer } from '../Reducer/OrderReducer'
+import { getOrderReducer, addOrderReducer, myOrderReducer } from '../Reducer/OrderReducer'
 import { getCartReducer } from '../Reducer/CartReducer'
-import { userIdReducer } from '../Reducer/userReducer'
+import { userIdReducer, getAllUserReducer } from '../Reducer/userReducer'
 import { productmodalReducr, productEditmodalReducr, catagorEditModalReducer, catagorAddModalReducer } from '../Reducer/ModalReducer'
 import thunk from 'redux-thunk'
 
@@ -25,7 +25,9 @@ const mainReducetr = combineReducers({
     catagorAddModalStore: catagorAddModalReducer,
     getCartStore: getCartReducer,
     addOrderStore: addOrderReducer,
-    UserIdStore: userIdReducer
+    UserIdStore: userIdReducer,
+    getAllUserStore: getAllUserReducer,
+    myOrderStore: myOrderReducer
 
 });
 

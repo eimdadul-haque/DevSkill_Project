@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Container, Row, Col, Form, Button} from 'react-bootstrap';
+import { Modal, Container, Row, Col, Form, Button } from 'react-bootstrap';
 import CloseIcon from '@material-ui/icons/Close';
 import { useDispatch, useSelector } from 'react-redux'
 import { signupAction } from '../../Redux/Actions/accountActions'
@@ -22,13 +22,10 @@ export default function SignUp(props) {
     const signup = () => {
         if (email && password && password.length >= 8) {
             dispatch(signupAction(firstname, lastname, email, phone, username, password))
-            if (state.status.statusCode === 200 && state.status.statusText === "OK") {
-                history.push('/dashboard')
-            }
+            window.location.reload()
         }
-        else {
-            console.log('Sugnup ERRor');
-        }
+
+        history.push('/login')
     }
 
     return (
@@ -106,45 +103,3 @@ export default function SignUp(props) {
 
 
 
-// <Row>
-// <Col md={12}>
-//     <Row>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='city'>
-//                 <Form.Control placeholder="city" name="city" type="city" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='street'>
-//                 <Form.Control placeholder="street" name="street" type="street" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='street number'>
-//                 <Form.Control placeholder="street number" name="street number" type="street number" />
-//             </Form.Group>
-//         </Col>
-//     </Row>
-// </Col>
-// </Row>
-// <Row>
-// <Col md={12}>
-//     <Row>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='zipcode'>
-//                 <Form.Control placeholder="zipcode" name="zipcode" type="zipcode" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='lat'>
-//                 <Form.Control placeholder="lat" name="lat" type="lat" />
-//             </Form.Group>
-//         </Col>
-//         <Col xs={4} md={4} lg={4}>
-//             <Form.Group controlId='long'>
-//                 <Form.Control placeholder="long" name="long" type="long" />
-//             </Form.Group>
-//         </Col>
-//     </Row>
-// </Col>
-// </Row>

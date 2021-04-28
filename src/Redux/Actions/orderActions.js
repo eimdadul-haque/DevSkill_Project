@@ -21,3 +21,20 @@ export const getallOrder = () => async (dispatch, getState) => {
     }
 }
 
+export const getMyOrder = () => async (dispatch, getState) => {
+    try {
+        const { data } = await axios.get(API_LINK + 'order/my-order/', {
+            headers: {
+                authorization: "bearer " + sessionStorage.getItem('token')
+            }
+        });
+        dispatch({
+            type: ActionType.MY_ORDER,
+            payload: data
+
+        })
+    } catch (error) {
+
+    }
+}
+

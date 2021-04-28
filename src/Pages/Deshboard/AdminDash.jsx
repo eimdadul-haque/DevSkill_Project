@@ -20,7 +20,7 @@ import { Delete } from '@material-ui/icons'
 import { Edit } from '@material-ui/icons'
 import { getallOrder } from '../../Redux/Actions/orderActions'
 import { getCart } from '../../Redux/Actions/cartActions'
-import { userIdAction } from '../../Redux/Actions/userActions'
+import { userIdAction, getAllUser } from '../../Redux/Actions/userActions'
 import { useHistory } from 'react-router-dom'
 import { API_LINK } from '../../API_LINK/API_LINK'
 import axios from 'axios'
@@ -32,6 +32,8 @@ function AdminDash() {
     const { products } = useSelector(state => state.ProductStore)
     const { catagory } = useSelector(state => state.catagoryStore)
     const { orderList } = useSelector(state => state.OrderStore)
+    const { allUser } = useSelector(state => state.getAllUserStore)
+
 
     const { module } = useSelector(state => state.ProductModalStore)
     const { edit } = useSelector(state => state.productEditmodalStore)
@@ -39,8 +41,6 @@ function AdminDash() {
     const { AddcatagoryModal } = useSelector(state => state.catagorAddModalStore)
     const [loader, setloader] = useState(true)
     const dispatch = useDispatch();
-    const [userId, setuserId] = useState('')
-    const [delUser, setdelUser] = useState('')
 
 
     useEffect(() => {
@@ -48,6 +48,7 @@ function AdminDash() {
         dispatch(getCatagoty());
         dispatch(getCart());
         dispatch(getallOrder());
+        dispatch(getAllUser());
         setloader(false);
     }, [])
 
@@ -55,11 +56,13 @@ function AdminDash() {
     const removeProduct = (id) => {
         dispatch(productDelete(id))
         dispatch(getProduts());
+        window.location.reload()
     }
 
     const removeCategory = (id) => {
         dispatch(categorytDelete(id))
         dispatch(getCatagoty());
+        window.location.reload()
     }
 
     const user_id = (_id) => {
@@ -80,6 +83,8 @@ function AdminDash() {
         })
             .then((res) => res.json())
             .catch((err) => err)
+
+        window.location.reload()
     }
 
     return (
@@ -115,7 +120,7 @@ function AdminDash() {
                                     <Col sm={12} md={6} lg={3}>
                                         <Card className='shadow '>
                                             <Card.Header className='text-center'>
-                                                Total User <h6>0</h6>
+                                                Total User <h6>{allUser.length}</h6>
                                             </Card.Header>
                                         </Card>
                                     </Col>
@@ -272,34 +277,47 @@ function AdminDash() {
                                         <Card className='shadow '>
                                             <Card.Header className='d-flex justify-content-between'>
                                                 <div className=' text-info font-weight-bolder'>
-                                                    User Section
+                                                    User Table
                                                 </div>
                                                 <div >
                                                     <Button onClick={() => add_user()} variant='outline-dark'>Add User</Button>
                                                 </div>
                                             </Card.Header>
-                                            <Card.Body>
-                                                <div className='row'>
-                                                    <Col lg={9}>
-                                                        <Form.Group controlId='deleteUser'>
-                                                            <Form.Control placeholder="Enter User Id" name="deleteUser" type="text" onChange={(e) => setdelUser(e.target.value)} />
-                                                        </Form.Group>
-                                                    </Col>
-                                                    <Col lg={3}>
-                                                        <Button style={{ width: '100%' }} onClick={() => deleteUser(delUser)} variant='danger'>Delete</Button>
-                                                    </Col>
-                                                </div>
-                                                <Row>
-                                                    <Col lg={9}>
-                                                        <Form.Group controlId='editUser'>
-                                                            <Form.Control placeholder="Enter User Id" name="editUser" type="text" onChange={(e) => setuserId(e.target.value)} />
-                                                        </Form.Group>
-                                                    </Col>
-                                                    <Col lg={3}>
-                                                        <Button style={{ width: '100%' }} onClick={() => user_id(userId)} variant='info'>Update</Button>
-                                                    </Col>
-                                                </Row>
-                                            </Card.Body>
+                                            <div className={style.scrollbar}>
+                                                <Table striped bordered hover style={{ backgroundColor: 'white' }} >
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>User ID</th>
+                                                            <th>User Name</th>
+                                                            <th>User Role</th>
+                                                            <th></th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    {
+                                                        allUser.length === 0 ? "No data in database" :
+                                                            <> <tbody >
+                                                                {
+                                                                    allUser.map((data, index) => {
+                                                                        return (
+                                                                            <tr key={index} onClick={""}>
+                                                                                <td>{index + 1}</td>
+                                                                                <td>{data._id}</td>
+                                                                                <td>{data.username}</td>
+                                                                                <td>{data.role}</td>
+                                                                                <td ><span className='text-danger' onClick={() => deleteUser(data._id)} ><Delete /></span></td>
+                                                                                <td ><span className='text-info' onClick={() => user_id(data._id)}  ><Edit /></span></td>
+                                                                            </tr>
+
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </tbody>
+                                                            </>
+                                                    }
+                                                </Table>
+                                            </div>
                                         </Card>
                                     </Col>
                                 </Row>
@@ -320,3 +338,37 @@ export default AdminDash;
 
 
 
+{/* <Card.Body>
+<Row>
+
+    <Col lg={9}>
+        <Form.Group controlId='editUser'>
+            <Form.Control placeholder="Enter User Id" name="editUser" type="text" onChange={(e) => setuserId(e.target.value)} />
+        </Form.Group>
+    </Col>
+    <Col lg={3}>
+        <Button style={{ width: '100%' }} onClick={() => user_id(userId)} variant='info'>User Details</Button>
+    </Col>
+</Row>
+<div className='row'>
+    <Col lg={9}>
+        <Form.Group controlId='deleteUser'>
+            <Form.Control placeholder="Enter User Id" name="deleteUser" type="text" onChange={(e) => setdelUser(e.target.value)} />
+        </Form.Group>
+    </Col>
+    <Col lg={3}>
+        <Button style={{ width: '100%' }} onClick={() => deleteUser(delUser)} variant='danger'>Delete</Button>
+    </Col>
+</div>
+<Row>
+
+    <Col lg={9}>
+        <Form.Group controlId='editUser'>
+            <Form.Control placeholder="Enter User Id" name="editUser" type="text" onChange={(e) => setuserId(e.target.value)} />
+        </Form.Group>
+    </Col>
+    <Col lg={3}>
+        <Button style={{ width: '100%' }} onClick={() => user_id(userId)} variant='info'>Update</Button>
+    </Col>
+</Row>
+</Card.Body> */}

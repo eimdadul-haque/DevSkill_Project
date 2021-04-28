@@ -30,6 +30,7 @@ export const ActionType = {
     //Order
     GET_ORDER: "GET_ORDER",
     ADD_ORDER: "ADD_ORDER",
+    MY_ORDER : "MY_ORDER",
 
     //modal
     PRODUCT_MODAL: "PRODUCT_MODAL",
@@ -40,9 +41,11 @@ export const ActionType = {
     //Edit Id
     EDIT_ID: "EDIT_ID",
     EDIT_CATEGORY_ID: "EDIT_CATEGORY_ID",
-    //User Id
 
-    USE_ID : "USE_ID"
+    //User 
+
+    USE_ID : "USE_ID",
+    GET_ALL_USER : "GET_ALL_USER"
 
 
 

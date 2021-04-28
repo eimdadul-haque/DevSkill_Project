@@ -29,3 +29,18 @@ export const addOrderReducer = (state = { order: [] }, action) => {
     }
 
 }
+
+export const myOrderReducer = (state = { myOrder: [] }, action) => {
+    switch (action.type) {
+
+        case ActionType.MY_ORDER:
+            return {
+                ...state,
+                myOrder: action.payload
+            }
+
+        default:
+            return state;
+    }
+
+}
