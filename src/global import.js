@@ -12,6 +12,7 @@ export { default as UserDash } from '../src/Pages/Deshboard/UserDash';
 export { default as ProtectedRouteCart } from './auth/ProtectedRouteCart';
 export { default as UpdateUser } from './Pages/Account/UpdateUser';
 export { default as AddUser } from './Pages/Account/AddUser';
+export { default as Profile } from './Pages/Account/Profile';
 
 
 
