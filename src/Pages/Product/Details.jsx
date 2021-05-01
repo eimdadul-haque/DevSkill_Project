@@ -70,7 +70,6 @@ export default function Details() {
                                             ))}
                                         </select></b></p>
                                         <Button className={style.btn_cart} onClick={() => ADD_cart(product._id)} variant='dark'>ADD TO CART</Button>
-                                        <Button className={style.btn_buy} onClick={() => buy_it(product._id)} variant='outline-dark'>BUY IT NOW</Button>
                                     </div>
                                 </div>
                             </Col>

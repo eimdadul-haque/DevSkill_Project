@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Navigation from '../../components/Navigation/Navigation'
 import Footer from '../../components/Footer/Footer'
-import { Container, Row, Col } from "react-bootstrap"
+import { Container, Row, Col, Button } from "react-bootstrap"
 import axios from 'axios'
 import { API_LINK } from '../../API_LINK/API_LINK';
-import { useEffect } from 'react'
+import { Edit } from '@material-ui/icons';
+import ProfileImg from '../../Const/profile.png'
+import { useHistory } from 'react-router-dom'
+
 
 export default function Profile() {
 
+    const history = useHistory();
     const [state, setstate] = useState([])
     const [wait, setwait] = useState(true)
 
@@ -28,14 +32,16 @@ export default function Profile() {
         }
     }, [])
 
-
+    const edit = () => {
+        history.push("/edit_profile");
+    }
     return (
         <>
             <Navigation />
             {
                 wait === true ? <>Loding...</> :
                     <>
-                        <Container style={{height:'100vh'}}>
+                        <Container style={{ height: '100vh' }}>
                             <Row className='d-flex justify-content-center text-center'>
                                 <Col lg={6}>
                                     <div>
@@ -43,30 +49,42 @@ export default function Profile() {
                                     </div>
                                 </Col>
                             </Row>
-                            <Row >
-                                <Col lg={12} className='mt-5'>
-                                    <div className=' p-5 shadow h3 text-info'>
+                            <Row className='shadow m-lg-5'>
+                                <Col lg={4}>
+                                    <div className='p-1'>
+                                        <img height={'300px'} src={ProfileImg} width={"300px"} />
+                                    </div>
+                                </Col>
+                                <Col lg={8} >
+                                    <div className='d-flex justify-content-end mt-2'>
                                         <div>
-                                            <p>Name: {state.firstname} {state.lastname} </p>
+                                            <Button onClick={() => edit()} variant='outline-dark'><Edit /></Button>
                                         </div>
-                                        <div>
-                                            <p>Role: {state.role} </p>
+                                    </div>
+
+                                    <div>
+                                        <div className=''>
+                                            <span className="h6">Name:</span> <span className='h5'> {state.firstname} {state.lastname} </span>
                                         </div>
-                                        <div>
-                                            <p>User Name: {state.username} </p>
+                                        <div className='p-1'>
+                                            <span className="h6">Role: </span><span className='h5'>{state.role}</span>
                                         </div>
-                                        <div>
-                                            <p>Email: {state.email} </p>
+                                        <div className='p-1'>
+                                            <span className="h6">User Name: </span >  <span className='h5'>{state.username}</span>
                                         </div>
-                                        <div>
-                                            <p>Phone: {state.phone} </p>
+                                        <div className='p-1'>
+                                            <span className="h6">Email: </span> <span className='h5'>{state.email}</span>
                                         </div>
-                                        <div>
-                                            <p>City: {state.city} </p>
+                                        <div className='p-1'>
+                                            <span className="h6">Phone:  </span> <span className='h5'>{state.phone}</span>
                                         </div>
-                                        <div>
-                                            <p>zipcode: {state.zipcode} </p>
+                                        <div className='p-1'>
+                                            <span className="h6">City: </span> <span className='h5'>{state.city}</span>
                                         </div>
+                                        <div className='p-1'>
+                                            <span className="h6">Zipcode:</span> <span className='h5'>{state.zipcode}</span>
+                                        </div>
+
                                     </div>
                                 </Col>
                             </Row>

@@ -13,7 +13,7 @@ export { default as ProtectedRouteCart } from './auth/ProtectedRouteCart';
 export { default as UpdateUser } from './Pages/Account/UpdateUser';
 export { default as AddUser } from './Pages/Account/AddUser';
 export { default as Profile } from './Pages/Account/Profile';
+export { default as EditProfile } from './Pages/Account/EditProfile';
 
 
 
-//Store

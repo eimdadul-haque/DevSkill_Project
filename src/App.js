@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import {
   Product, Cart, Details, Login, Oreder, AdminDash,
-  UserDash, ProtectedRoute, NotFound, ProtectedRouteCart, UpdateUser,AddUser, Profile
+  UserDash, ProtectedRoute, NotFound, ProtectedRouteCart, UpdateUser, AddUser, Profile, EditProfile
 } from './global import'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProduts } from './Redux/Actions/productActions';
@@ -36,6 +36,9 @@ function App() {
             </Route>
             <Route path='/profile' exact>
               <ProtectedRouteCart component={Profile} />
+            </Route>
+            <Route path='/edit_profile' exact>
+              <ProtectedRouteCart component={EditProfile} />
             </Route>
             <Route path='/cart' exact>
               <ProtectedRouteCart component={Cart} />
