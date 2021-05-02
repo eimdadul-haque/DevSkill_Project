@@ -36,6 +36,30 @@ export default function AddCategory(props) {
         dispatch(AddcategoryModaloff())
     }
 
+    const uploadImage = async (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            const Base64 = await base64(file);
+            setimage(Base64);
+        }
+
+    }
+
+    const base64 = (file) => {
+        return new Promise((resolv, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolv(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        })
+    }
+
     return (
         <>
             {loader === true ? <div className='App'><FadeLoader /></div> :
@@ -77,7 +101,7 @@ export default function AddCategory(props) {
                                                         <Form.Control placeholder="description" name="description" type="text" onChange={(e) => setdesc(e.target.value)} />
                                                     </Form.Group>
                                                     <Form.Group controlId='image'>
-                                                        <Form.Control placeholder="image" name="image" type="text" onChange={(e) => setimage(e.target.value)} />
+                                                        <Form.Control placeholder="image" name="image" type="file" onChange={(e) => uploadImage(e)} />
                                                     </Form.Group>
                                                 </Col>
                                             </Row>
