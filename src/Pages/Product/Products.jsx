@@ -39,7 +39,7 @@ export default function Products() {
                                                             <Col sm={12} className={style.col}>
                                                                 <Card className="shadow" id={style.card}>
                                                                     <div className={style.inner} >
-                                                                        <Card.Img className={style.img} src={data.image} alt="Card image" />
+                                                                        <Card.Img className={style.img} src={"http://localhost:8080"+data.image} alt="Card image" />
                                                                     </div>
                                                                     <div className='mt-3'>
                                                                         <Card.Title>

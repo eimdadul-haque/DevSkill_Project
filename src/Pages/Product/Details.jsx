@@ -54,10 +54,10 @@ export default function Details() {
                 <div>
                     <Container className={style.container}>
                         <Row style={{ marginTop: '20px' }}>
-                            <Col lg={6}>
-                                <img src={product.image} className={style.img} alt="..." />
+                            <Col lg={6} className="mt-5">
+                                <img src={"http://localhost:8080"+product.image} className={style.img} alt="..." />
                             </Col>
-                            <Col lg={6}>
+                            <Col lg={6} className="mt-5">
                                 <div  >
                                     <div >
                                         <h5 ><b></b> {product.title}</h5>
