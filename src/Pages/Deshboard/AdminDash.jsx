@@ -162,7 +162,7 @@ function AdminDash() {
 
                                                                                 <tr key={index}>
                                                                                     <td>{index + 1}</td>
-                                                                                    <td><img style={{ width: '50px', height: '50px' }} src={data.image} alt="..." /></td>
+                                                                                    <td><img style={{ width: '50px', height: '50px' }} src={"http://localhost:8080"+data.image} alt="..." /></td>
                                                                                     <td>{data.title}</td>
                                                                                     <td>{data.price} </td>
                                                                                     <td>{data.stock}</td>
