@@ -78,13 +78,6 @@ export default function Profile() {
                                         <div className='p-1'>
                                             <span className="h6">Phone:  </span> <span className='h5'>{state.phone}</span>
                                         </div>
-                                        <div className='p-1'>
-                                            <span className="h6">City: </span> <span className='h5'>{state.city}</span>
-                                        </div>
-                                        <div className='p-1'>
-                                            <span className="h6">Zipcode:</span> <span className='h5'>{state.zipcode}</span>
-                                        </div>
-
                                     </div>
                                 </Col>
                             </Row>
